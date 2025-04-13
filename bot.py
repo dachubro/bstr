@@ -1,7 +1,8 @@
 import os
 import requests
 from telegram import Update
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+from telegram.ext import Updater, CommandHandler, MessageHandler, CallbackContext
+from telegram.ext.filters import Text
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -63,10 +64,10 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("start", start))
 
     # Message handler to capture any text message (assuming it's a video URL)
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_video_url))
+    dispatcher.add_handler(MessageHandler(Text(), handle_video_url))
 
     # Handle unknown messages
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_unknown))
+    dispatcher.add_handler(MessageHandler(Text(), handle_unknown))
 
     # Start polling updates from Telegram
     updater.start_polling()
