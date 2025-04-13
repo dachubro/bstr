@@ -70,5 +70,6 @@ async def main() -> None:
     await application.run_polling()
 
 if __name__ == '__main__':
+    # Directly run the async function without creating a new event loop
     import asyncio
-    asyncio.run(main())
+    asyncio.create_task(main())
